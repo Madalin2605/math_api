@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math API Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4fff4;
+            color: #0b3d0b;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            margin-top: 40px;
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a6600;
+            border-bottom: 2px solid #1a6600;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-top: 40px;
+        }
+
+        form {
+            background-color: #e1f7e1;
+            border: 1px solid #a2d5a2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            margin-left: 10px;
+            padding: 5px;
+            width: 150px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        .result {
+            background-color: #d0f0d0;
+            border-left: 6px solid #1a6600;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math API Interface</h1>
+
+        <!-- Power Form -->
+        <h2>Power Operation</h2>
+        <form method="POST" action="/web/power">
+            <label>Base: <input type="number" name="base" step="any" required></label>
+            <label>Exponent: <input type="number" name="exponent" step="any" required></label>
+            <button type="submit">Calculate</button>
+        </form>
+
+        <!-- Fibonacci Form -->
+        <h2>Fibonacci</h2>
+        <form method="POST" action="/web/fibonacci">
+            <label>N: <input type="number" name="n" min="0" required></label>
+            <button type="submit">Calculate</button>
+        </form>
+
+        <!-- Factorial Form -->
+        <h2>Factorial</h2>
+        <form method="POST" action="/web/factorial">
+            <label>N: <input type="number" name="n" min="0" required></label>
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                Result: {{ result }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
