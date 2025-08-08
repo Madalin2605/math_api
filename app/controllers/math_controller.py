@@ -4,7 +4,6 @@ from app.schemas.math_schemas import (
     FibonacciRequest, FibonacciResponse,
     FactorialRequest, FactorialResponse
 )
-# from flask import current_app
 from app.models.request_log import RequestLog
 from app.models.db import db
 

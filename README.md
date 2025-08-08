@@ -54,7 +54,7 @@ cd math-api
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+source .venv/bin/activate  # or .venv/Scripts/activate on Windows
 ```
 
 ### 3. Install dependencies
@@ -69,7 +69,21 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### 5. Access the endpoints
+### 5. Access the Web Interface and the endpoints
+
+You can access the full interface at:
+
+```
+http://127.0.0.1:5000/
+```
+
+This will show a landing page with a button to launch the Web UI.
+
+> All operations (Power, Fibonacci, Factorial) are available through the web interface.
+
+---
+
+You can access the endpoints:
 
 | Operation | URL | Method |
 |----------|-----|--------|
