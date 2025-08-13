@@ -6,6 +6,7 @@ from app.schemas.math_schemas import (
 )
 from app.models.request_log import RequestLog
 from app.models.db import db
+from app.kafka.producer import send_log
 
 
 def handle_power(request_data: PowerRequest) -> PowerResponse:
@@ -20,6 +21,13 @@ def handle_power(request_data: PowerRequest) -> PowerResponse:
     )
     db.session.add(log)
     db.session.commit()
+
+    # Send to Kafka
+    send_log(
+        operation='power',
+        input_data=request_data.dict(),
+        result=str(response.result)
+    )
 
     return response
 
@@ -37,6 +45,13 @@ def handle_fibonacci(request_data: FibonacciRequest) -> FibonacciResponse:
     db.session.add(log)
     db.session.commit()
 
+    # Send to Kafka
+    send_log(
+        operation='fibonacci',
+        input_data=request_data.dict(),
+        result=str(response.result)
+    )
+
     return response
 
 
@@ -52,5 +67,12 @@ def handle_factorial(request_data: FactorialRequest) -> FactorialResponse:
     )
     db.session.add(log)
     db.session.commit()
+
+    # Send to Kafka
+    send_log(
+        operation='factorial',
+        input_data=request_data.dict(),
+        result=str(response.result)
+    )
 
     return response

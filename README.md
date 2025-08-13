@@ -20,10 +20,12 @@ math_api/
 │   ├── routes/               # API + Web route handlers (Flask Blueprints)
 │   ├── schemas/              # Pydantic models for request/response validation
 │   ├── utils/                # Core math operations
-│   └── templates/            # HTML frontend
+│   ├── kafka/                # Kafka producer integration
+│   └── templates/            # HTML frontend (Bootstrap-based)
 ├── tests/                    # Unit tests
-├── templates/                # (Optional, if moved here for Flask default)
-├── main.py                   # App entry point
+├── kafka_consumer.py         # Standalone Kafka consumer for logs
+├── docker-compose.yml        # Kafka + Zookeeper setup for local use
+├── main.py                   # Flask app entry point
 ├── requirements.txt
 └── README.md
 ```
@@ -41,7 +43,9 @@ math_api/
 
 ---
 
-## How to Run the Project
+## How to Run the Project (With Optional Kafka Logging)
+
+This section describes the complete flow to set up and run the Math API microservice, including optional Kafka-based log streaming.
 
 ### 1. Clone the repository
 
@@ -54,7 +58,7 @@ cd math-api
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # or .venv/Scripts/activate on Windows
+source .venv/bin/activate  # or .venv/Scripts/activate on Windows (bash)
 ```
 
 ### 3. Install dependencies
@@ -63,13 +67,43 @@ source .venv/bin/activate  # or .venv/Scripts/activate on Windows
 pip install -r requirements.txt
 ```
 
-### 4. Run the service
+---
+
+### 4. (Optional) Enable Kafka Logging for API Requests
+
+If you want to stream logs from your Flask app to Kafka in real-time, follow these extra steps.
+
+#### a. Start Kafka and Zookeeper using Docker Compose
+
+```bash
+docker compose up -d
+```
+
+Or with Rancher Desktop:
+
+```bash
+nerdctl compose up -d
+```
+
+Kafka will be available at `localhost:9092`.
+
+#### b. Start the Kafka Consumer (in a new terminal)
+
+```bash
+python kafka_consumer.py
+```
+
+This will listen to the `math-api-logs` topic and display messages as they arrive.
+
+---
+
+### 5. Run the service (the Flask Application)
 
 ```bash
 python main.py
 ```
 
-### 5. Access the Web Interface and the endpoints
+### 6. Access the Web Interface and the endpoints
 
 You can access the full interface at:
 
@@ -79,11 +113,13 @@ http://127.0.0.1:5000/
 
 This will show a landing page with a button to launch the Web UI.
 
-> All operations (Power, Fibonacci, Factorial) are available through the web interface.
+> All operations (Power, Fibonacci, Factorial) are available through the web interface — the results will display in the UI and logs will stream to Kafka (if enabled).
 
 ---
 
-You can access the endpoints:
+### 7. API Endpoints
+
+These endpoints can also be triggered directly using tools like `curl` or Postman:
 
 | Operation | URL | Method |
 |----------|-----|--------|
@@ -91,6 +127,24 @@ You can access the endpoints:
 | Fibonacci | `http://127.0.0.1:5000/math/fibonacci` | POST |
 | Factorial | `http://127.0.0.1:5000/math/factorial` | POST |
 | Web UI   | `http://127.0.0.1:5000/web/` | GET |
+
+---
+
+### 8. Shut Down Services
+
+To stop Kafka and Zookeeper:
+
+```bash
+docker compose down
+```
+
+To clear all Kafka data:
+
+```bash
+docker compose down -v
+```
+
+To stop the Flask app and Kafka consumer, just Ctrl+C in each terminal.
 
 ---
 
@@ -133,17 +187,6 @@ python -m unittest discover -s tests
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 - [SQLite](https://www.sqlite.org/index.html)
 - [Flake8](https://flake8.pycqa.org/)
-
----
-
-## Future Improvements
-
-- Docker support
-- JWT Authorization
-- Redis-based caching
-- Prometheus monitoring
-- Kafka-based event logging
-- API docs with Swagger/OpenAPI
 
 ---
 
