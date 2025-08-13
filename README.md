@@ -36,10 +36,13 @@ math_api/
 
 - ✅ RESTful API using Flask
 - ✅ Modular MVC-style code layout
-- ✅ Pydantic for input validation
-- ✅ SQLite for request logging
-- ✅ Simple HTML interface (`/web`)
-- ✅ Unit tests for core operations
+- ✅ Pydantic for input validation and response modeling
+- ✅ SQLite database for request logging
+- ✅ Kafka integration for streaming API request logs (Bonus 1)
+- ✅ Docker Compose setup for Kafka + Zookeeper
+- ✅ Simple Bootstrap-based HTML interface (`/web`)
+- ✅ Kafka consumer for real-time log visibility
+- ✅ Unit tests for math operations using `unittest`
 
 ---
 
@@ -77,12 +80,6 @@ If you want to stream logs from your Flask app to Kafka in real-time, follow the
 
 ```bash
 docker compose up -d
-```
-
-Or with Rancher Desktop:
-
-```bash
-nerdctl compose up -d
 ```
 
 Kafka will be available at `localhost:9092`.
@@ -186,6 +183,8 @@ python -m unittest discover -s tests
 - [Pydantic](https://docs.pydantic.dev/)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 - [SQLite](https://www.sqlite.org/index.html)
+- [kafka-python](https://kafka-python.readthedocs.io/en/master/)
+- [Docker-Compose](https://docs.docker.com/compose/)
 - [Flake8](https://flake8.pycqa.org/)
 
 ---

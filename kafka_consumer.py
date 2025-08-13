@@ -3,7 +3,7 @@ import json
 
 # Kafka configuration
 TOPIC = "math-api-logs"
-BROKER = "localhost:9092"  # Replace with your Kafka NodePort or cloud broker
+BROKER = "localhost:9092"  
 
 # Create consumer
 consumer = KafkaConsumer(
