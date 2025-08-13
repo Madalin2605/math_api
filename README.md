@@ -84,7 +84,7 @@ docker compose up -d
 
 Kafka will be available at `localhost:9092`.
 
-#### b. Start the Kafka Consumer (in a new terminal)
+#### b. Start the Kafka Consumer
 
 ```bash
 python kafka_consumer.py
@@ -94,7 +94,7 @@ This will listen to the `math-api-logs` topic and display messages as they arriv
 
 ---
 
-### 5. Run the service (the Flask Application)
+### 5. Run the service (the Flask Application) in a new terminal
 
 ```bash
 python main.py
@@ -186,11 +186,5 @@ python -m unittest discover -s tests
 - [kafka-python](https://kafka-python.readthedocs.io/en/master/)
 - [Docker-Compose](https://docs.docker.com/compose/)
 - [Flake8](https://flake8.pycqa.org/)
-
----
-
-## License
-
-This project is open source under the [MIT License](LICENSE).
 
 ---
